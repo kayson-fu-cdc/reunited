@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 // const Form = import("fed_consumer/Form");
 const Button = import("federated/Button");
 const ComponentInPackage = import("componentInPackage/ComponentInPackage");
@@ -27,6 +27,9 @@ describe("Federation", function () {
   it("Testing CompInSrc from Remote", async function () {
     const Comp = (await CompInSrc).default
     render(<Comp/>);
+    
+    expect(screen.getByText("CompInSrc component")).toBeTruthy();
+
   });
   // it("Testing Button from Form", async function () {
   //   const Frm = (await Form).default

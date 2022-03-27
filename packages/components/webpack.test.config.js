@@ -8,6 +8,7 @@ module.exports = {
   entry: require.resolve('./index.js'),
   output: {
     path: path.resolve(__dirname, "./dist-test"),
+    clean: true,
   },
   target: "node",
   resolve: {
