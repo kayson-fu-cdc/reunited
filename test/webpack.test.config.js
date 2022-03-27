@@ -3,18 +3,19 @@ const glob = require('glob');
 const thisFile = path.basename(__filename);
 const nodeExternals = require('webpack-node-externals')
 const {ModuleFederationPlugin} = require("webpack").container
-const ReactLazySsrPlugin = require('react-lazy-ssr/webpack');
+// const ReactLazySsrPlugin = require('react-lazy-ssr/webpack');
 const reunited = require('../index')
 const testFiles = glob.sync("!(node_modules)/**/*.test.js").filter(function (element) {
-  return element != "test/bundle.test.js" && !element.includes(thisFile);
+  return element != "test/bundle.test.js" && !element.includes(thisFile) && !element.includes("dist");
 }).map(function (element) {
   return "./" + element;
 });
 module.exports = {
   entry: {"bundle.test":testFiles},
   output: {
-    path: path.resolve(__dirname, "."),
-    filename: "[name].js"
+    path: path.resolve(__dirname, "./dist"),
+    filename: "[name].js",
+    clean: true
   },
   target: "node",
   resolve: {
@@ -41,7 +42,7 @@ module.exports = {
       library: {type: "commonjs-module", name: "test_bundle"},
       filename: "remoteEntry.js",
       exposes: {
-        "./render":"./test/suspenseRender.js"
+        // "./render":"./test/suspenseRender.js"
       },
       remotes: {
         // Tobias, why do i need to do this in order to get the remote to properly resolve
@@ -49,6 +50,6 @@ module.exports = {
         "fed_consumer": reunited(path.resolve(__dirname,'../federated-cross-test/dist-test/remoteEntry.js'),'fed_consumer')
       }
     }),
-    new ReactLazySsrPlugin()
+    // new ReactLazySsrPlugin()
   ]
 };
