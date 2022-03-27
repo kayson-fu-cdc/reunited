@@ -31,7 +31,8 @@ module.exports = {
       filename: "remoteEntry.js",
       library: {type: "commonjs-module", name: "componentInPackage"},
       exposes: {
-        "./ComponentInPackage": "./ComponentInPackage.js"
+        "./ComponentInPackage": "./ComponentInPackage.js",
+        "./CompInSrc": "./src/CompInSrc/CompInSrc.js"
       },
       shared: {
         react: deps.dependencies.react,

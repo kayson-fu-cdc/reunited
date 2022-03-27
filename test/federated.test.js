@@ -3,6 +3,7 @@ import {render} from '@testing-library/react';
 // const Form = import("fed_consumer/Form");
 const Button = import("federated/Button");
 const ComponentInPackage = import("componentInPackage/ComponentInPackage");
+const CompInSrc = import("componentInPackage/CompInSrc");
 
 
 
@@ -19,6 +20,12 @@ describe("Federation", function () {
 
   it("Testing ComponentInPackage from Remote", async function () {
     const Comp = (await ComponentInPackage).default
+    render(<Comp/>);
+  });
+
+
+  it("Testing CompInSrc from Remote", async function () {
+    const Comp = (await CompInSrc).default
     render(<Comp/>);
   });
   // it("Testing Button from Form", async function () {
