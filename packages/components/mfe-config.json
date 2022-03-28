@@ -1,0 +1,9 @@
+{
+    "remotes": {},
+    "exposes": {
+        "./CompInSrc": "./src/CompInSrc/CompInSrc.tsx"
+    },
+    "name": {
+      "containerName": "componentInPackage"
+    }
+  }

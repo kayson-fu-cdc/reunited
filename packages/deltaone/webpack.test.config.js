@@ -1,14 +1,16 @@
 const path = require('path');
 const glob = require('glob');
-const webpack = require("webpack")
+const webpack = require('webpack')
 const {ModuleFederationPlugin} = webpack.container
-const HTMLPlugin = require('html-webpack-plugin')
-const deps = require('../package.json')
-const reunited = require('../index')
+const deps = require('./package.json')
+const reunited = require('../../index');
+const {remotes, exposes, name: {containerName}} = require("./mfe-config.json");
+
 module.exports = {
-  entry: require.resolve('./index.js'),
+  entry: require.resolve('./index.ts'),
   output: {
     path: path.resolve(__dirname, "./dist-test"),
+    clean: true,
   },
   target: "node",
   resolve: {
@@ -20,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
@@ -28,18 +30,16 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'fed_consumer',
+      name: containerName,
       filename: "remoteEntry.js",
-      library: {type: "commonjs-module", name: "fed_consumer"},
+      library: {type: "commonjs-module"},
       remotes: {
-        "federated": reunited(path.resolve(__dirname, '../federated-test/dist-test/remoteEntry.js'), "federated")
+        "componentInPackage": reunited(path.resolve(__dirname, '../components/dist-test/remoteEntry.js'), "componentInPackage")
       },
-      exposes: {
-        "./Form": "./federated-cross-test/form.js"
-      },
+      exposes,
       shared: {
-        react: deps.devDependencies.react,
-        "react-dom": deps.devDependencies["react-dom"]
+        react: deps.dependencies.react,
+        "react-dom": deps.dependencies["react-dom"]
       }
     }),
     new webpack.DefinePlugin({

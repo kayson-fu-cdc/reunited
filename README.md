@@ -10,3 +10,6 @@ How to see federated unit tests working, this is intended for applications using
 1) `yarn install`
 2) `yarn build`
 3) `yarn test`
+
+# Note
+this is forked from https://github.com/module-federation/reunited but adapted for constellation

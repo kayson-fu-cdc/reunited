@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "webpack --config federated-test/webpack.test.config.js && webpack --config federated-cross-test/webpack.test.config.js",
-    "webpack:test": "yarn build && webpack --config test/webpack.test.config.js",
-    "jest": "jest test/bundle.test.js -u",
-    "test": "yarn webpack:test && yarn jest",
-    "build:demo": "cd federated-test && webpack --config ./webpack.build.config",
-    "serve": "webpack --config federated-cross-test/webpack.build.config.js && webpack --config federated-test/webpack.build.config.js && concurrently \"PORT=3000 serve ./federated-cross-test/dist\" \"PORT=3001 serve ./federated-test/dist\" "
+    "jest": "jest test/dist/bundle.test.js -u",
+    "test": "yarn workspaces run build:test && webpack --config test/webpack.test.config.js && yarn jest"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/react": "^12.1.4",
     "jest": "^26.6.3",
     "react": "16.14.0",
     "react-dom": "16.14.0",

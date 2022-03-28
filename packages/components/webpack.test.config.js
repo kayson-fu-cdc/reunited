@@ -2,12 +2,14 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack')
 const {ModuleFederationPlugin} = webpack.container
-const deps = require('../package.json')
+const deps = require('./package.json')
+const {remotes, exposes, name: {containerName}} = require("./mfe-config.json");
 
 module.exports = {
-  entry: require.resolve('./index.js'),
+  entry: require.resolve('./index.ts'),
   output: {
     path: path.resolve(__dirname, "./dist-test"),
+    clean: true,
   },
   target: "node",
   resolve: {
@@ -19,7 +21,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
@@ -27,15 +29,13 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'federated',
+      name: containerName,
       filename: "remoteEntry.js",
-      library: {type: "commonjs-module", name: "federated"},
-      exposes: {
-        "./Button": "./federated-test/Button.js"
-      },
+      library: {type: "commonjs-module"},
+      exposes,
       shared: {
-        react: deps.devDependencies.react,
-        "react-dom": deps.devDependencies["react-dom"]
+        react: deps.dependencies.react,
+        "react-dom": deps.dependencies["react-dom"]
       }
     }),
     new webpack.DefinePlugin({
