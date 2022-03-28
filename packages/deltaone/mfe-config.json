@@ -1,7 +1,7 @@
 {
     "remotes": {},
     "exposes": {
-        "./OptionComp": "./src/OptionComp/OptionComp.js"
+        "./OptionComp": "./src/OptionComp/OptionComp.tsx"
     },
     "name": {
         "containerName": "deltaone"

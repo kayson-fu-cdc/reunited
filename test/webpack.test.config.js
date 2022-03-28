@@ -5,11 +5,14 @@ const nodeExternals = require('webpack-node-externals')
 const {ModuleFederationPlugin} = require("webpack").container
 
 const reunited = require('../index')
-const testFiles = glob.sync("!(node_modules)/**/*.test.js").filter(function (element) {
+
+const testFiles = glob.sync("!(node_modules)/**/*.test.tsx").filter(function (element) {
   return element != "test/bundle.test.js" && !element.includes(thisFile) && !element.includes("dist");
 }).map(function (element) {
   return "./" + element;
 });
+
+console.log("test files", testFiles);
 
 module.exports = {
   entry: {"bundle.test":testFiles},
@@ -31,7 +34,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },

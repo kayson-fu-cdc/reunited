@@ -7,7 +7,7 @@ const reunited = require('../../index');
 const {remotes, exposes, name: {containerName}} = require("./mfe-config.json");
 
 module.exports = {
-  entry: require.resolve('./index.js'),
+  entry: require.resolve('./index.ts'),
   output: {
     path: path.resolve(__dirname, "./dist-test"),
     clean: true,
@@ -22,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
