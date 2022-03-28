@@ -1,9 +1,8 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-// const Form = import("fed_consumer/Form");
-const Button = import("federated/Button");
-const ComponentInPackage = import("componentInPackage/ComponentInPackage");
+
 const CompInSrc = import("componentInPackage/CompInSrc");
+const OptionComp = import("deltaone/OptionComp");
 
 
 
@@ -12,17 +11,6 @@ describe("Federation", function () {
   //   const from = await Form
   //   console.log(await suspenseRender(from.default))
   // })
-  it("Testing Button from Remote", async function () {
-    const Btn = (await Button).default
-    render(<Btn/>);
-  });
-
-
-  it("Testing ComponentInPackage from Remote", async function () {
-    const Comp = (await ComponentInPackage).default
-    render(<Comp/>);
-  });
-
 
   it("Testing CompInSrc from Remote", async function () {
     const Comp = (await CompInSrc).default
@@ -31,9 +19,13 @@ describe("Federation", function () {
     expect(screen.getByText("CompInSrc component")).toBeTruthy();
 
   });
-  // it("Testing Button from Form", async function () {
-  //   const Frm = (await Form).default
-  //   const wrapper = mount(<Frm/>);
-  //   expect(wrapper).toMatchSnapshot()
-  // });
+
+  it("Testing CompInSrc from OptionComp", async function () {
+    const OptionComponent = (await OptionComp).default
+    
+    render(<OptionComponent/>);
+
+    expect(screen.getByText("OptionComp component")).toBeTruthy();
+    expect(screen.getByText("CompInSrc component")).toBeTruthy();
+  });
 });

@@ -3,6 +3,7 @@ const glob = require('glob');
 const webpack = require('webpack')
 const {ModuleFederationPlugin} = webpack.container
 const deps = require('./package.json')
+const reunited = require('../../index');
 
 module.exports = {
   entry: require.resolve('./index.js'),
@@ -28,11 +29,14 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'componentInPackage',
+      name: 'deltaone',
       filename: "remoteEntry.js",
-      library: {type: "commonjs-module", name: "componentInPackage"},
+      library: {type: "commonjs-module", name: "deltaone"},
+      remotes: {
+        "componentInPackage": reunited(path.resolve(__dirname, '../components/dist-test/remoteEntry.js'), "componentInPackage")
+      },
       exposes: {
-        "./CompInSrc": "./src/CompInSrc/CompInSrc.js"
+        "./OptionComp": "./src/OptionComp/OptionComp.js"
       },
       shared: {
         react: deps.dependencies.react,

@@ -46,9 +46,10 @@ module.exports = {
       },
       remotes: {
         // Tobias, why do i need to do this in order to get the remote to properly resolve
-        "federated": reunited(path.resolve(__dirname,'../federated-test/dist-test/remoteEntry.js'),"federated"),
+        // "federated": reunited(path.resolve(__dirname,'../federated-test/dist-test/remoteEntry.js'),"federated"),
         "componentInPackage": reunited(path.resolve(__dirname, '../packages/components/dist-test/remoteEntry.js'), "componentInPackage"),
-        "fed_consumer": reunited(path.resolve(__dirname,'../federated-cross-test/dist-test/remoteEntry.js'),'fed_consumer')
+        "deltaone": reunited(path.resolve(__dirname, '../packages/deltaone/dist-test/remoteEntry.js'), "deltaone"),
+        // "fed_consumer": reunited(path.resolve(__dirname,'../federated-cross-test/dist-test/remoteEntry.js'),'fed_consumer')
       }
     }),
     // new ReactLazySsrPlugin()
