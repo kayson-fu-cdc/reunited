@@ -8,12 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "webpack --config federated-test/webpack.test.config.js && webpack --config federated-cross-test/webpack.test.config.js",
-    "webpack:test": "yarn build && webpack --config test/webpack.test.config.js",
     "jest": "jest test/dist/bundle.test.js -u",
-    "test": "yarn webpack:test && yarn workspaces run build:test && yarn jest",
-    "build:demo": "cd federated-test && webpack --config ./webpack.build.config",
-    "serve": "webpack --config federated-cross-test/webpack.build.config.js && webpack --config federated-test/webpack.build.config.js && concurrently \"PORT=3000 serve ./federated-cross-test/dist\" \"PORT=3001 serve ./federated-test/dist\" "
+    "test": "yarn workspaces run build:test && webpack --config test/webpack.test.config.js && yarn jest"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.17.0",
