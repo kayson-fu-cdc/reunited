@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const {ModuleFederationPlugin} = webpack.container
 const deps = require('./package.json')
 const reunited = require('../../index');
+const {remotes, exposes, name: {containerName}} = require("./mfe-config.json");
 
 module.exports = {
   entry: require.resolve('./index.js'),
@@ -29,15 +30,13 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'deltaone',
+      name: containerName,
       filename: "remoteEntry.js",
-      library: {type: "commonjs-module", name: "deltaone"},
+      library: {type: "commonjs-module"},
       remotes: {
         "componentInPackage": reunited(path.resolve(__dirname, '../components/dist-test/remoteEntry.js'), "componentInPackage")
       },
-      exposes: {
-        "./OptionComp": "./src/OptionComp/OptionComp.js"
-      },
+      exposes,
       shared: {
         react: deps.dependencies.react,
         "react-dom": deps.dependencies["react-dom"]

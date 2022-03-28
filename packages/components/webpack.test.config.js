@@ -3,6 +3,7 @@ const glob = require('glob');
 const webpack = require('webpack')
 const {ModuleFederationPlugin} = webpack.container
 const deps = require('./package.json')
+const {remotes, exposes, name: {containerName}} = require("./mfe-config.json");
 
 module.exports = {
   entry: require.resolve('./index.js'),
@@ -28,12 +29,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'componentInPackage',
+      name: containerName,
       filename: "remoteEntry.js",
-      library: {type: "commonjs-module", name: "componentInPackage"},
-      exposes: {
-        "./CompInSrc": "./src/CompInSrc/CompInSrc.js"
-      },
+      library: {type: "commonjs-module"},
+      exposes,
       shared: {
         react: deps.dependencies.react,
         "react-dom": deps.dependencies["react-dom"]

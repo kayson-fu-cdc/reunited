@@ -7,10 +7,6 @@ const OptionComp = import("deltaone/OptionComp");
 
 
 describe("Federation", function () {
-  // it("is rendering Nested Suspense",async()=>{
-  //   const from = await Form
-  //   console.log(await suspenseRender(from.default))
-  // })
 
   it("Testing CompInSrc from Remote", async function () {
     const Comp = (await CompInSrc).default
