@@ -16,6 +16,7 @@ const testFiles = glob.sync("!(node_modules)/**/*.test.tsx").filter(function (el
 
 module.exports = {
   entry: {"bundle.test":testFiles},
+  stats: 'minimal',
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].js",
@@ -48,7 +49,7 @@ module.exports = {
       remotes: {
         // Tobias, why do i need to do this in order to get the remote to properly resolve
         "componentInPackage": reunited(path.resolve(__dirname, '../packages/components/dist-test/remoteEntry.js'), "componentInPackage"),
-        "deltatwo": reunited(path.resolve(__dirname, '../packages/deltatwo/dist-test/remoteEntry.js'), "deltatwo"),
+        "deltaone": reunited(path.resolve(__dirname, '../packages/deltaone/dist-test/remoteEntry.js'), "deltaone"),
       },
       shared: {
         react: {singleton: true, requiredVersion: deps.devDependencies.react}, // share scope with this name will be used},

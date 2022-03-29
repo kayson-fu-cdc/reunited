@@ -7,6 +7,7 @@ const {remotes, exposes, name: {containerName}} = require("./mfe-config.json");
 
 module.exports = {
   entry: require.resolve('./index.ts'),
+  stats: 'minimal',
   output: {
     path: path.resolve(__dirname, "./dist-test"),
     clean: true,

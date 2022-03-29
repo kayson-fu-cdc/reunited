@@ -8,5 +8,5 @@ class MessageChannelStub {
       };
     }
   }
-  
+
   window.MessageChannel = MessageChannelStub;
