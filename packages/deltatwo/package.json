@@ -1,5 +1,5 @@
 {
-    "name": "deltaone",
+    "name": "deltatwo",
     "version": "0.1.1",
     "private": true,
     "dependencies": {
@@ -11,6 +11,7 @@
     },
 
     "devDependencies": {
+      "@testing-library/react": "^12.1.4",
       "@babel/core": "^7.15.0",
       "@babel/plugin-transform-runtime": "^7.17.0",
       "@babel/preset-env": "^7.13.15",

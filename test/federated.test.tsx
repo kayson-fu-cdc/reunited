@@ -1,23 +1,36 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-
 const CompInSrc = import("componentInPackage/CompInSrc");
-const OptionComp = import("deltaone/OptionComp");
+
+// const OptionComp = import("deltatwo/OptionComp");
+
+global.fetch = jest.fn((s) =>
+  Promise.resolve({
+    json: () => Promise.resolve({ status: 123 }),
+  })
+);
 
 describe("Federation", function () {
   it("Testing CompInSrc from Remote", async function () {
+    const React = await import("react");
+    const { render, screen, waitFor } = await import("@testing-library/react");
+    // const { shallow, mount, render } = await import("enzyme");
+
     const Comp = (await CompInSrc).default;
     render(<Comp />);
 
     expect(screen.getByText("CompInSrc component")).toBeTruthy();
+
+    await waitFor(() => {
+      // expect(global.fetch).toBeCalledWith("g");
+      expect(screen.getByText(`status is: {"status":123}`)).toBeTruthy();
+    });
   });
 
-  it("Testing CompInSrc from OptionComp", async function () {
-    const OptionComponent = (await OptionComp).default;
+  // it("Testing CompInSrc from OptionComp", async function () {
+  //   const OptionComponent = (await OptionComp).default;
 
-    render(<OptionComponent />);
+  //   render(<OptionComponent />);
 
-    expect(screen.getByText("OptionComp component")).toBeTruthy();
-    expect(screen.getByText("CompInSrc component")).toBeTruthy();
-  });
+  //   expect(screen.getByText("OptionComp component")).toBeTruthy();
+  //   expect(screen.getByText("CompInSrc component")).toBeTruthy();
+  // });
 });

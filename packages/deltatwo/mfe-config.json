@@ -4,6 +4,6 @@
         "./OptionComp": "./src/OptionComp/OptionComp.tsx"
     },
     "name": {
-        "containerName": "deltaone"
+        "containerName": "deltatwo"
     }
   }

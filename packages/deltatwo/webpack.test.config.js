@@ -38,8 +38,8 @@ module.exports = {
       },
       exposes,
       shared: {
-        react: deps.dependencies.react,
-        "react-dom": deps.dependencies["react-dom"]
+        react: {singleton: true, requiredVersion: deps.dependencies.react},
+        "react-dom": {singleton: true, requiredVersion: deps.dependencies["react-dom"]}
       }
     }),
     new webpack.DefinePlugin({

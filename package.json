@@ -39,5 +39,8 @@
     "webpack-node-externals": "^2.5.2",
     "webpack-virtual-modules": "^0.4.2",
     "workerpool": "^6.1.4"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }

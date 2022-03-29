@@ -6,4 +6,8 @@ module.exports = {
 
   transformIgnorePatterns: [
   ],
+
+  setupFiles: [
+    './jest/jestSetup.js',
+  ],
 };

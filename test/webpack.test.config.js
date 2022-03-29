@@ -5,6 +5,7 @@ const nodeExternals = require('webpack-node-externals')
 const {ModuleFederationPlugin} = require("webpack").container
 
 const reunited = require('../index')
+const deps = require('../package.json')
 
 const testFiles = glob.sync("!(node_modules)/**/*.test.tsx").filter(function (element) {
   return element != "test/bundle.test.js" && !element.includes(thisFile) && !element.includes("dist");
@@ -12,7 +13,6 @@ const testFiles = glob.sync("!(node_modules)/**/*.test.tsx").filter(function (el
   return "./" + element;
 });
 
-console.log("test files", testFiles);
 
 module.exports = {
   entry: {"bundle.test":testFiles},
@@ -45,13 +45,14 @@ module.exports = {
       name: "test_bundle",
       library: {type: "commonjs-module"},
       filename: "remoteEntry.js",
-      exposes: {
-        // "./render":"./test/suspenseRender.js"
-      },
       remotes: {
         // Tobias, why do i need to do this in order to get the remote to properly resolve
         "componentInPackage": reunited(path.resolve(__dirname, '../packages/components/dist-test/remoteEntry.js'), "componentInPackage"),
-        "deltaone": reunited(path.resolve(__dirname, '../packages/deltaone/dist-test/remoteEntry.js'), "deltaone"),
+        "deltatwo": reunited(path.resolve(__dirname, '../packages/deltatwo/dist-test/remoteEntry.js'), "deltatwo"),
+      },
+      shared: {
+        react: {singleton: true, requiredVersion: deps.devDependencies.react}, // share scope with this name will be used},
+        "react-dom": {singleton: true, requiredVersion: deps.devDependencies["react-dom"]},
       }
     }),
   ]
